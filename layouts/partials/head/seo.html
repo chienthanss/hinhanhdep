@@ -1,0 +1,107 @@
+{{/* TODO: replace scratch with dict */}}
+
+{{/* Adapted from doks */}}
+{{ with .Params.meta.title }}
+    {{ $title := . }}
+    {{ $title = partial "utilities/TitleCase.html" (dict "page" $ "text" $title) }}
+    {{ $.Scratch.Set "title" $title -}}
+{{ else }}
+    {{ $title := .Title | default .Site.Title }}
+    {{ $title = partial "utilities/TitleCase.html" (dict "page" $ "text" $title) }}
+    {{ $.Scratch.Set "title" $title -}}
+{{ end }}
+
+{{ $description := or (partial "utilities/GetDescription.html" (dict "page" . "meta" true)) .Site.Params.main.description }}
+{{ if gt (strings.RuneCount $description) 150 }}
+    {{ $description = print (substr $description 0 150) "..." }}
+{{ end }}
+{{ $.Scratch.Set "description" $description -}}
+
+{{- $thumbnail := "" -}}
+{{ if reflect.IsMap .Params.Thumbnail }}{{ $thumbnail = .Params.Thumbnail.url }}{{ else }}{{ $thumbnail = .Params.Thumbnail }}{{ end }}
+
+{{ if $thumbnail -}}
+    {{ $imgURL := index (partial "assets/helpers/image-dimension.html" (dict "src" $thumbnail "image-width" 1280 "image-height" 640 "page" .)) "target" }}
+    {{ $.Scratch.Set "thumbnail" ($imgURL | absURL) -}}
+{{ else -}}
+    {{ with .Site.Params.schema.image.url -}}    
+        {{ $.Scratch.Set "thumbnail" (. | absURL) -}}
+    {{ else -}}
+        {{ $images := $.Resources.ByType "image" -}}
+        {{ $featured := $images.GetMatch "*feature*" -}}
+        {{ if not $featured -}}
+            {{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" -}}
+        {{ end -}}
+        {{ with $featured -}}
+            {{ $.Scratch.Set "thumbnail" $featured.Permalink -}}
+        {{ else -}}
+            {{ with $.Site.Params.opengraph.images -}}
+                {{ $.Scratch.Set "thumbnail" (index . 0 | absURL) -}}
+            {{ end -}}
+        {{ end -}}
+    {{ end -}}
+{{ end -}}
+
+{{/* ==========================================
+    ROBOTS: noindex cho term có < 100 ảnh
+    (tránh thin content penalty — 600-800 tag nhỏ)
+    ========================================== */}}
+{{ if eq .Kind "404" -}}
+    <meta name="robots" content="noindex, follow">
+{{ else if and (eq .Kind "term") (lt (len .Pages) 100) -}}
+    {{/* 🆕 Tag/category nhỏ (< 100 ảnh) — noindex để tránh thin content */}}
+    <meta name="robots" content="noindex, follow">
+{{ else }}
+  {{ with or .Params.robots .Params.meta.robots .Site.Params.meta.robots -}}
+    <meta name="robots" content="{{ . }}">
+  {{ else -}}
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  {{ end -}}
+{{ end -}}
+
+{{/* ==========================================
+    TITLE: pattern có [N+] cho term (tăng CTR)
+    ========================================== */}}
+{{ if .IsHome -}}
+    <title>{{ .Site.Title }}{{ with .Site.Params.head.tagline }} {{ $.Site.Params.main.separator }} {{ . }}{{ end }}</title>
+{{ else if eq .Kind "term" -}}
+    <title>{{ .Title }} – Free HD, 4K, 8K Download [{{ len .Pages }}+] {{ $.Site.Params.main.separator }} {{ .Site.Title }}</title>
+{{ else -}}
+    <title>{{ .Title }} {{ $.Site.Params.main.separator }} {{ .Site.Title }}</title>
+{{ end -}}
+
+<meta name="description" content="{{ $.Scratch.Get "description" }}">
+
+{{/* ==========================================
+    CANONICAL: emit cho page + term page 1 + section page 1
+    (Hinode gốc chỉ emit cho Kind=page → fix cho term/section)
+    ========================================== */}}
+{{ $canonical := or .Params.canonical .Params.meta.canonical -}}
+{{ if not $canonical -}}
+    {{ if eq .Kind "page" -}}
+        {{ $canonical = .Permalink -}}
+    {{ else if eq .Kind "term" -}}
+        {{/* Chỉ canonical khi đang ở page 1 — tránh gộp page 2,3 vào page 1 */}}
+        {{ if not .Paginator.HasPrev -}}
+            {{ $canonical = .Permalink -}}
+        {{ end -}}
+    {{ else if eq .Kind "section" -}}
+        {{ if not .Paginator.HasPrev -}}
+            {{ $canonical = .Permalink -}}
+        {{ end -}}
+    {{ end -}}
+{{ end -}}
+{{ with $canonical -}}
+    <link rel="canonical" href="{{ . | absURL }}">
+{{ end -}}
+
+{{ partial "head/opengraph.html" . }}
+{{ partial "head/twitter_cards.html" . }}
+
+{{ range .AlternativeOutputFormats }}
+    {{ printf "<link rel=%q type=%q href=%q>" .Rel .MediaType.Type .Permalink | safeHTML }}
+{{ end }}
+
+{{ partial "head/structured-data.html" . }}

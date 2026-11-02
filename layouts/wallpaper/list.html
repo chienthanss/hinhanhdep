@@ -1,0 +1,65 @@
+{{ define "main" }}
+  {{ $paginator := .Paginate (where site.RegularPages "Section" "wallpaper") 48 }}
+  
+  <div class="container-xxl py-4">
+    <header class="mb-4">
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="lead text-muted">{{ . }}</p>{{ end }}
+      <p class="small text-muted">Total: {{ len (where site.RegularPages "Section" "wallpaper") }} wallpapers</p>
+    </header>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+      {{ range $paginator.Pages }}
+        <div class="col">
+          <article class="card h-100 shadow-sm">
+            <a href="{{ .RelPermalink }}">
+              {{ if .Params.is_video }}
+                <!-- HIỂN THỊ VIDEO (ẢNH ĐỘNG) -->
+                <video src="{{ .Params.remote_video }}"
+                       poster="{{ .Params.remote_thumb }}"
+                       class="card-img-top"
+                       autoplay muted loop playsinline
+                       style="aspect-ratio: 16/9; object-fit: cover; pointer-events: none;">
+                </video>
+              {{ else }}
+                <!-- HIỂN THỊ ẢNH TĨNH BÌNH THƯỜNG -->
+                <img src="{{ .Params.remote_thumb }}"
+                     alt="{{ .Title }}"
+                     class="card-img-top"
+                     loading="lazy"
+                     style="aspect-ratio: 16/9; object-fit: cover;">
+              {{ end }}
+            </a>
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2">
+                <a href="{{ .RelPermalink }}" class="text-decoration-none text-reset">
+                  {{ .Title }}
+                </a>
+              </h2>
+              <p class="card-text small text-muted mb-2">
+                {{ .Params.description | truncate 100 }}
+              </p>
+              
+              <div class="d-flex flex-wrap gap-1 mt-2">
+                {{ if .Params.is_video }}
+                  <span class="badge bg-danger">GIF / Video</span>
+                {{ else }}
+                  <span class="badge bg-primary">Image</span>
+                {{ end }}
+                {{ range .Params.tags }}
+                  <a href="{{ printf "/tag/%s/" (. | urlize) | relURL }}" class="badge bg-secondary text-decoration-none">
+                    {{ . }}
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          </article>
+        </div>
+      {{ end }}
+    </div>
+    
+    <div class="mt-4 d-flex justify-content-center">
+      {{ template "_internal/pagination.html" . }}
+    </div>
+  </div>
+{{ end }}

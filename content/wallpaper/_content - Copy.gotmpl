@@ -1,0 +1,23 @@
+{{ range hugo.Data.wallpapers }}
+  {{ $.AddPage (dict
+      "path"  (printf "%s" .id)
+      "slug"  (printf "%s" .slug)
+      "title" .title
+      "params" (dict
+        "description" .description
+        "is_video"    .is_video
+        "remote_thumb" .remote_thumb
+        "remote_video" .remote_video
+        "preview"     .preview
+        "tags"        .tags
+        "categories"  .categories
+        "width"       .width
+        "height"      .height
+        "build"       (dict
+          "list"              "always"
+          "render"            "link"
+          "publishResources"  false
+        )
+      )
+  ) }}
+{{ end }}

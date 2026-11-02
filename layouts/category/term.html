@@ -1,0 +1,100 @@
+{{ define "main" }}
+  {{/* Cắt 48 ảnh mỗi trang */}}
+  {{ $paginator := .Paginate .Pages 48 }}
+  {{ $total := len .Pages }}
+  
+  <div class="container-xxl py-4">
+
+    <!-- 🆕 Breadcrumb HTML (khớp JSON-LD BreadcrumbList đã có sẵn trong structured-data.html) -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="/categories/" class="text-decoration-none">Categories</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-4">
+      <h1>{{ .Title }}</h1>
+
+      {{/* 🆕 Hiển thị _index.md content nếu có (tăng topical authority) */}}
+      {{ with .Content }}
+        <div class="lead text-muted mb-3">{{ . }}</div>
+      {{ else }}
+        <p class="lead text-muted mb-3">
+          Download {{ $total }} free {{ .Title | lower }} in HD, 4K, and 8K for desktop and mobile. Curated collection, updated daily.
+        </p>
+      {{ end }}
+
+      <p class="small text-muted mb-0">Total: {{ $total }} wallpapers</p>
+    </header>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+      {{/* Chỉ lặp các ảnh của trang hiện tại */}}
+      {{ range $i, $p := $paginator.Pages }}
+        <div class="col">
+          <article class="card h-100 shadow-sm">
+            <a href="{{ $p.RelPermalink }}">
+              <img src="{{ $p.Params.remote_thumb }}"
+                   alt="{{ $p.Title }}"
+                   class="card-img-top"
+                   {{ if eq $i 0 }}loading="eager" fetchpriority="high"{{ else }}loading="lazy"{{ end }}
+                   style="aspect-ratio: 16/9; object-fit: cover;">
+            </a>
+            <div class="card-body">
+              <h2 class="h6 card-title mb-2">
+                <a href="{{ $p.RelPermalink }}" class="text-decoration-none text-reset">{{ $p.Title }}</a>
+              </h2>
+              <p class="card-text small text-muted mb-2">{{ $p.Params.description | truncate 100 }}</p>
+            </div>
+          </article>
+        </div>
+      {{ end }}
+    </div>
+    
+    <div class="mt-4 d-flex justify-content-center">
+      {{ template "_internal/pagination.html" . }}
+    </div>
+
+    <!-- 🆕 Related categories (Silo internal linking — tăng topical authority) -->
+    {{ with .Parent }}
+      {{ if gt (len .Pages) 1 }}
+        <section class="mt-5 pt-4 border-top">
+          <h2 class="h5 mb-3">Explore more categories</h2>
+          <div class="d-flex flex-wrap gap-2">
+            {{ range first 20 .Pages }}
+              {{ if ne .Permalink $.Permalink }}
+                <a href="{{ .RelPermalink }}" class="btn btn-outline-secondary btn-sm">
+                  {{ .Title }} <span class="badge bg-light text-dark ms-1">{{ len .Pages }}</span>
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </section>
+      {{ end }}
+    {{ end }}
+
+    <!-- 🆕 FAQ từ frontmatter (tùy chọn — cực tốt cho SEO) -->
+    {{ with .Params.faq }}
+      <section class="mt-5">
+        <h2 class="h4 mb-3">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAcc">
+          {{ range $i, $f := . }}
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#faq{{ $i }}">
+                  {{ $f.q }}
+                </button>
+              </h3>
+              <div id="faq{{ $i }}" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                <div class="accordion-body">{{ $f.a }}</div>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+
+  </div>
+{{ end }}

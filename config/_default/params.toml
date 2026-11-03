@@ -4,7 +4,7 @@
     description = "Free HD, 4K, and 8K wallpapers for desktop and mobile. Curated collection, updated daily."
     enableLanguageSelectionStorage = false
     canonifyAssetsURLs = false
-    endorse = true
+    endorse = false
     footerBelowFold = false
     loading = "lazy"
     breakpoint = "md"

@@ -12,10 +12,10 @@ Welcome to **Hinhanhdep.org - Wallpaper Gallery**, your ultimate destination for
 ### Explore Popular Categories
 
 Find exactly what you need by exploring our most popular collections:
-- [Nature Wallpapers](/category/cat-10/) — mountains, forests, oceans, and breathtaking landscapes.
-- [Anime Wallpapers](/category/cat-3/) — your favorite characters from Naruto, One Piece, Demon Slayer, and more.
-- [Abstract Wallpapers](/category/cat-1/) — mesmerizing gradients, geometric patterns, and colorful digital art.
-- [Fantasy Wallpapers](/category/cat-11/) — magical landscapes, dragons, and mythical creatures.
+- [Nature Wallpapers](/category/nature-wallpapers/) — mountains, forests, oceans, and breathtaking landscapes.
+- [Anime Wallpapers](/category/anime-wallpapers/) — your favorite characters from Naruto, One Piece, Demon Slayer, and more.
+- [Abstract Wallpapers](/category/abstract-wallpapers/) — mesmerizing gradients, geometric patterns, and colorful digital art.
+- [Fantasy Wallpapers](/category/fantasy-wallpapers/) — magical landscapes, dragons, and mythical creatures.
 
 *(Or view the complete list in our [All Categories](/categories/) section).*
 

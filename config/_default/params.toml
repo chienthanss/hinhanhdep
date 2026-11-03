@@ -104,6 +104,7 @@
     themeFont = "Inter"
     themeFontPath = "/fonts"
     fontSizeBase = "1rem"
+	customSCSS = ["scss/custom.scss"] 
 
 # ==========================================
 # ✅ SỬA: schema thật của site

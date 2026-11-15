@@ -47,7 +47,11 @@
     {{- end -}}
     {{ partial "head/seo.html" . }}
     {{ partialCached "head/favicon.html" . -}}
+    
     {{ if gt (len .Site.Languages) 1}}
     <meta name="lang" content="{{ .Site.Language }}">
     {{ end }}
+    
+    {{/* ✅ ADSENSE  */}}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701607092405155" crossorigin="anonymous"></script>
 {{ end }}

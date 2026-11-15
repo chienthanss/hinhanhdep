@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="100%" height="100%">
+  <defs>
+    <!-- Hiệu ứng đổ bóng nhẹ cho khung -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+    
+    <!-- Gradient nền phong cảnh phía trong -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE" />
+      <stop offset="100%" stop-color="#BAE6FD" />
+    </linearGradient>
+
+    <!-- Gradient cho ngọn núi -->
+    <linearGradient id="mountainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Khung viền ngoài bo tròn đại diện cho bức ảnh -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#FFFFFF" filter="url(#shadow)" />
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#E2E8F0" stroke-width="2" />
+
+  <!-- Vùng hiển thị nội dung ảnh bên trong -->
+  <rect x="10" y="10" width="44" height="44" rx="8" fill="url(#bgGrad)" />
+
+  <!-- Mặt trời -->
+  <circle cx="21" cy="23" r="5" fill="#FBBF24" />
+
+  <!-- Dãy núi (Cảnh quan) -->
+  <path d="M10 44L24 28L34 38L42 29L54 44H10Z" fill="url(#mountainGrad)" />
+  
+  <!-- Đỉnh núi xa (tạo chiều sâu) -->
+  <path d="M30 44L38 33L48 44H30Z" fill="#0369A1" opacity="0.6" />
+
+  <!-- Điểm nhấn: Chấm tròn biểu thị ống kính máy ảnh ở góc trên phải -->
+  <circle cx="48" cy="18" r="2.5" fill="#334155" opacity="0.4" />
+</svg>

@@ -127,3 +127,10 @@
 
 [opengraph]
     images = ["logo.png"]
+
+# ==========================================
+# ✅ THÊM MÃ ADSENSE ĐỂ XÁC MINH SITE
+# ==========================================
+[head]
+    custom = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701607092405155" crossorigin="anonymous"></script>'
+	

@@ -102,12 +102,37 @@ defaultContentLanguageInSubdir = false
     path = "github.com/gethinode/hinode/v3"
 
 # ==========================================
-# KHAI BÁO DOMAIN ẢNH CHO THEME HINODE
+# PARAMS
 # ==========================================
 [params]
   # ✅ Tắt meta generator của theme (nếu theme có hỗ trợ)
   disableGenerator = true
-  
+
+  # ✅ CẤU HÌNH FAVICON (Trỏ tới thư mục assets/img/)
+  [params.favicon]
+    # Khai báo file logo (nên dùng file PNG để theme tự động resize)
+    logo = "img/favicon.png"
+    # Các kích thước sẽ được tự động cắt ra
+    sizes = [16, 32, 48]
+
+  # ✅ GHI ĐÈ TITLE & TAGLINE TRANG CHỦ
+  # Theme Hinode mặc định tagline = "A Hugo Theme" → gây ra "- A Hugo Theme"
+  [params.head]
+    # Title hiển thị trên trang chủ (dùng cho <title> và og:title)
+    title   = "Wallpaper Gallery"
+    # Để rỗng để KHÔNG nối thêm tagline vào title
+    tagline = ""
+    # Nếu muốn tagline thật, dùng dòng dưới thay cho tagline = "":
+    # tagline = "Free HD, 4K & 8K Wallpapers for Desktop & Mobile"
+
+  # ✅ Separator giữa title và tagline (mặc định theme là "-")
+  [params.main]
+    separator = "-"
+    # Có thể đổi thành "|" hoặc "–" nếu muốn
+
+  # ==========================================
+  # KHAI BÁO DOMAIN ẢNH CHO THEME HINODE
+  # ==========================================
   [params.modules]
     [params.modules.hinode]
       [params.modules.hinode.csp]

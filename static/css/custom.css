@@ -1,0 +1,107 @@
+/* =========================================================
+   ULTIMATE FIX: Target the .col directly with high priority
+   ========================================================= */
+
+/* 1. Style the column as a card — CHỈ ÁP DỤNG CHO LƯỚI BÀI VIẾT (g-4) */
+#container .container-fluid > .row.g-4 > .col {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(15, 23, 42, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* 2. Hover effect cho column */
+#container .container-fluid > .row.g-4 > .col:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.1), 0 4px 10px rgba(217, 93, 30, 0.05) !important;
+    border-color: rgba(217, 93, 30, 0.4) !important;
+}
+
+/* 3. Thanh accent trái khi hover */
+#container .container-fluid > .row.g-4 > .col::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 4px !important;
+    background-color: #d95d1e !important;
+    transform: scaleY(0) !important;
+    transform-origin: bottom !important;
+    transition: transform 0.3s ease !important;
+    z-index: 10 !important;
+}
+
+#container .container-fluid > .row.g-4 > .col:hover::before {
+    transform: scaleY(1) !important;
+}
+
+/* 4. Reset spacing cho inner elements */
+#container .container-fluid > .row.g-4 > .col .card {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    height: 100% !important;
+}
+
+#container .container-fluid > .row.g-4 > .col .card-body {
+    padding: 0 !important;
+}
+
+/* 5. Badge "1 min read" */
+#container .container-fluid > .row.g-4 > .col .card-text small {
+    display: inline-block !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: #b34712 !important;
+    background: rgba(217, 93, 30, 0.08) !important;
+    padding: 0.25rem 0.65rem !important;
+    border-radius: 999px !important;
+    margin-bottom: 0.75rem !important;
+    text-transform: uppercase;
+}
+
+/* 6. Title hover color */
+#container .container-fluid > .row.g-4 > .col .card-title {
+    transition: color 0.2s ease !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 700 !important;
+}
+
+#container .container-fluid > .row.g-4 > .col:hover .card-title {
+    color: #b34712 !important;
+}
+
+/* 7. Remove underlines */
+#container .container-fluid > .row.g-4 > .col a {
+    text-decoration: none !important;
+}
+
+/* 8. Dự phòng: card trực tiếp không qua .col (cho trang archive, category) */
+#container .card {
+    background-color: #fff !important;
+    border: 1px solid rgba(15, 23, 42, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+#container .card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.1), 0 4px 10px rgba(217, 93, 30, 0.05) !important;
+    border-color: rgba(217, 93, 30, 0.4) !important;
+}

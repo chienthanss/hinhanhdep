@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Shield & Accent Gradients -->
+    <linearGradient id="shieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+
+    <linearGradient id="mountainGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#3730a3" />
+    </linearGradient>
+
+    <linearGradient id="mountainGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#581c87" />
+    </linearGradient>
+
+    <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Nền tối -->
+  <rect width="500" height="500" rx="40" fill="url(#bgGrad)" />
+
+  <g transform="translate(0, -10)" filter="url(#shadow)">
+    <!-- Ngôi sao phía trên Shield -->
+    <path d="M 250 50 L 254 62 L 266 66 L 254 70 L 250 82 L 246 70 L 234 66 L 246 62 Z" fill="#e0e7ff" />
+    <path d="M 215 65 L 217 72 L 224 74 L 217 76 L 215 83 L 213 76 L 206 74 L 213 72 Z" fill="#a5b4fc" opacity="0.8" />
+    <path d="M 285 65 L 287 72 L 294 74 L 287 76 L 285 83 L 283 76 L 276 74 L 283 72 Z" fill="#a5b4fc" opacity="0.8" />
+
+    <!-- Biểu tượng Khiên (Shield Emblem) -->
+    <!-- Viền ngoài khiên -->
+    <path d="M 160 90 L 340 90 C 340 90 350 210 250 280 C 150 210 160 90 160 90 Z" fill="none" stroke="url(#shieldBorder)" stroke-width="6" stroke-linejoin="round" />
+    
+    <!-- Lòng khiên chính -->
+    <path d="M 166 96 L 334 96 C 334 96 343 206 250 272 C 157 206 166 96 166 96 Z" fill="#0f172a" />
+
+    <!-- Nội dung trong khiên (Cắt búp theo khung khiên) -->
+    <g clip-path="url(#shieldClip)">
+      <clipPath id="shieldClip">
+        <path d="M 166 96 L 334 96 C 334 96 343 206 250 272 C 157 206 166 96 166 96 Z" />
+      </clipPath>
+
+      <!-- Mặt trời & Tia sáng -->
+      <circle cx="250" cy="140" r="28" fill="url(#sunGrad)" />
+      <path d="M 250 96 L 250 106 M 250 174 L 250 184 M 206 140 L 216 140 M 284 140 L 294 140 M 219 109 L 226 116 M 274 164 L 281 171 M 219 171 L 226 164 M 274 116 L 281 109" stroke="#fde047" stroke-width="3" stroke-linecap="round" />
+
+      <!-- Dãy núi -->
+      <path d="M 140 220 L 200 150 L 250 195 L 300 140 L 360 220 Z" fill="url(#mountainGrad2)" opacity="0.7" />
+      <path d="M 150 240 L 220 160 L 270 210 L 320 165 L 360 240 Z" fill="url(#mountainGrad1)" />
+
+      <!-- Đỉnh núi tuyết -->
+      <polygon points="220,160 205,182 215,180 220,187 227,178 235,182" fill="#ffffff" />
+      <polygon points="320,165 308,185 316,182 320,188 326,181 332,185" fill="#ffffff" opacity="0.9" />
+
+      <!-- Dòng sông 4K nghệ thuật -->
+      <path d="M 250 210 Q 235 225 245 240 Q 255 255 240 275 L 260 275 Q 270 255 260 240 Q 250 225 260 210 Z" fill="url(#riverGrad)" />
+
+      <!-- Nhãn 4K nhỏ trong khiên -->
+      <rect x="230" y="248" width="40" height="18" rx="4" fill="#0f172a" opacity="0.8" />
+      <text x="250" y="261" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#38bdf8" text-anchor="middle">4K</text>
+    </g>
+  </g>
+
+  <!-- Tên thương hiệu & Slogan -->
+  <text x="250" y="370" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, sans-serif" font-weight="800" font-size="30" fill="#ffffff" text-anchor="middle" letter-spacing="4">HINHANHDEP</text>
+  <text x="250" y="402" font-family="system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, sans-serif" font-weight="600" font-size="13" fill="#38bdf8" text-anchor="middle" letter-spacing="6">4K WALLPAPERS</text>
+</svg>
